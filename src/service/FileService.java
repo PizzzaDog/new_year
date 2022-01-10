@@ -1,6 +1,5 @@
 package service;
 
-import constant.LetterStatus;
 import entity.City;
 import entity.Letter;
 import entity.User;
@@ -34,7 +33,6 @@ public class FileService {
                 user.setRole(userFields[3]);
                 result.add(user);
             }
-
         } catch (FileNotFoundException e) {
             System.out.println("Файл " + USER_PATH + " не найден");
         }
@@ -58,8 +56,6 @@ public class FileService {
 
     public static List<Letter> getAllLetters() {
         try {
-
-
             FileReader reader = new FileReader(LETTER_PATH);
             Scanner sc = new Scanner(reader);
             List<Letter> result = new ArrayList<>();

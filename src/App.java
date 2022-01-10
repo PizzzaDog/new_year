@@ -1,11 +1,15 @@
 import entity.User;
-import service.FileService;
-import service.HelloService;
+import service.UserService;
 
-import java.util.List;
+import java.io.IOException;
 
 public class App {
-    public static void main(String[] args) {
-        HelloService.hello();
+    public static void main(String[] args) throws IOException {
+        User user = new User();
+        user.setLogin("check");
+        user.setPass("pass");
+        UserService service = new UserService();
+        service.register(user);
+
     }
 }

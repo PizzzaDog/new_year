@@ -12,6 +12,5 @@ public class HelloService {
            default:
                System.out.println("Досвидос");
        }
-
    }
 }

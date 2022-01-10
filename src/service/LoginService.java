@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class LoginService {
     private static final String SANTA_LOGIN = "Santa";
 
+
     public static void login() {
         Scanner sc = new Scanner(System.in);
 

@@ -1,7 +1,5 @@
 package entity;
 
-import constant.Role;
-
 public class User {
 
     private String login;

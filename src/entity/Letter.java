@@ -1,12 +1,10 @@
 package entity;
 
-import constant.LetterStatus;
-
 public class Letter {
 
-    private String status;
     private String senderLogin;
     private String text;
+    private String status;
 
     public Letter() {
     }

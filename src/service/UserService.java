@@ -4,7 +4,10 @@ import entity.City;
 import entity.User;
 import exception.UserAlreadyExistException;
 import repository.UserRepository;
+import security.MySecurityContext;
 
+
+//TODO Дописать необходимые методы/проверки/исключения(если надо)
 public class UserService {
     private UserRepository userRepository = new UserRepository();
 
@@ -22,5 +25,9 @@ public class UserService {
         }
         user.setRole("USER");
         userRepository.save(user);
+        MySecurityContext.setCurrentUser(user);
+    }
+    public void logout() {
+        MySecurityContext.setCurrentUser(null);
     }
 }

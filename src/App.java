@@ -1,9 +1,5 @@
-import tipo_front.TipoFront;
 
-import java.io.IOException;
-
-public class App {
+public class App implements Cloneable {
     public static void main(String[] args) {
-        TipoFront.run();
     }
 }

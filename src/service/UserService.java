@@ -20,13 +20,15 @@ public class UserService {
         }
     }
 
-    public void login(String login, String pass) {
+    public boolean login(String login, String pass) {
         if (userRepository.existByLogin(login)) {
             User user = userRepository.findByLogin(login);
             if (pass.equals(user.getPass())) {
                 MySecurityContext.setCurrentUser(user);
+                return true;
             }
         }
+        return false;
     }
 
     public void register(String login, String password) {

@@ -1,5 +1,7 @@
 package service;
 
+import constant.ConsoleColor;
+import constant.Role;
 import entity.City;
 import entity.User;
 import exception.UserAlreadyExistException;
@@ -18,6 +20,19 @@ public class UserService {
         }
     }
 
+    public void register(String login, String password) {
+        if (userRepository.existByLogin(login)) {
+            System.out.println(ConsoleColor.RED + "ERROR: Пользователь с таким логином уже существует");
+        } else {
+            User user = new User();
+            user.setLogin(login);
+            user.setPass(password);
+            user.setRole(Role.USER.name());
+            user.setCity(new City(1, "Minsk"));
+            userRepository.save(user);
+        }
+    }
+
     public void register(User user) {
         if (userRepository.existByLogin(user.getLogin())) {
             throw new UserAlreadyExistException("Такой пользователь уже существует");
@@ -32,5 +47,10 @@ public class UserService {
 
     public void logout() {
         MySecurityContext.setCurrentUser(null);
+    }
+
+    public void delete() {
+//        userRepository.delete();
+//        asfds
     }
 }

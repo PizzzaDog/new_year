@@ -20,6 +20,15 @@ public class UserService {
         }
     }
 
+    public void login(String login, String pass) {
+        if (userRepository.existByLogin(login)) {
+            User user = userRepository.findByLogin(login);
+            if (pass.equals(user.getPass())) {
+                MySecurityContext.setCurrentUser(user);
+            }
+        }
+    }
+
     public void register(String login, String password) {
         if (userRepository.existByLogin(login)) {
             System.out.println(ConsoleColor.RED + "ERROR: Пользователь с таким логином уже существует");
@@ -35,14 +44,15 @@ public class UserService {
 
     public void register(User user) {
         if (userRepository.existByLogin(user.getLogin())) {
-            throw new UserAlreadyExistException("Такой пользователь уже существует");
+            System.out.println(ConsoleColor.RED + "Такой пользователь уже существует");
+        } else {
+            if (user.getCity() == null) {
+                user.setCity(new City(1, "Minsk"));
+            }
+            user.setRole("USER");
+            userRepository.save(user);
+            MySecurityContext.setCurrentUser(user);
         }
-        if (user.getCity() == null) {
-            user.setCity(new City(1, "Minsk"));
-        }
-        user.setRole("USER");
-        userRepository.save(user);
-        MySecurityContext.setCurrentUser(user);
     }
 
     public void logout() {

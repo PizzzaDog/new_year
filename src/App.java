@@ -1,5 +1,8 @@
+import front.CommandArchestrator;
 
-public class App implements Cloneable {
+public class App {
     public static void main(String[] args) {
+        CommandArchestrator front = new CommandArchestrator();
+        front.likeARun();
     }
 }

@@ -2,7 +2,6 @@ package repository;
 
 import entity.User;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,8 +13,8 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class UserRepository {
-    private static final File userFile = new File("src/resources/user.txt");
-    private CityRepository cityRepository = new CityRepository();
+    private static final File USER_FILE = new File("src/resources/user.txt");
+    private final CityRepository cityRepository = new CityRepository();
 
     public boolean existByLogin(String login) {
         List<User> allUsers = getAllUsers();
@@ -24,6 +23,7 @@ public class UserRepository {
     }
 
     public User findByLogin(String login) {
+        //TODO Убрать NULL
         return getAllUsers().stream().filter(x -> x.getLogin().equals(login)).findFirst().get();
     }
 
@@ -33,7 +33,7 @@ public class UserRepository {
             String userString = "\n"
                     + user.getLogin() + "-" + user.getPass() + "-"
                     + user.getCity().getId() + "-" + user.getRole();
-            FileWriter writer = new FileWriter(userFile, true);
+            FileWriter writer = new FileWriter(USER_FILE, true);
             writer.write(userString);
             writer.flush();
             writer.close();
@@ -42,10 +42,11 @@ public class UserRepository {
         }
     }
 
+
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
         try {
-            FileReader reader = new FileReader(userFile);
+            FileReader reader = new FileReader(USER_FILE);
             Scanner sc = new Scanner(reader);
             while (sc.hasNextLine()) {
                 User user = new User();

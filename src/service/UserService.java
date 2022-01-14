@@ -1,17 +1,14 @@
 package service;
 
 import constant.ConsoleColor;
-import constant.Role;
 import entity.City;
 import entity.User;
-import exception.UserAlreadyExistException;
 import repository.UserRepository;
 import security.MySecurityContext;
 
 //TODO Дописать необходимые методы/проверки/исключения(если надо)
 public class UserService {
-    private UserRepository userRepository = new UserRepository();
-
+    private final UserRepository userRepository = new UserRepository();
 
     public void login(User user) {
         if (userRepository.existByLogin(user.getLogin())) {
@@ -38,7 +35,7 @@ public class UserService {
             User user = new User();
             user.setLogin(login);
             user.setPass(password);
-            user.setRole(Role.USER.name());
+            user.setRole("USER");
             user.setCity(new City(1, "Minsk"));
             userRepository.save(user);
         }
@@ -57,12 +54,16 @@ public class UserService {
         }
     }
 
+    public User getCurrentUser() {
+        User currentUser = MySecurityContext.getCurrentUser();
+        if (currentUser == null) {
+            System.out.println(ConsoleColor.RED + "На данный момент нет авторизованного пользователя");
+        }
+        return currentUser;
+    }
+
     public void logout() {
         MySecurityContext.setCurrentUser(null);
     }
 
-    public void delete() {
-//        userRepository.delete();
-//        asfds
-    }
 }
